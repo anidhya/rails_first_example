@@ -90,6 +90,7 @@
     <orderEntry type="library" scope="PROVIDED" name="[gem] builder (v2.1.2, /usr/lib/ruby/gems/1.8/gems/builder-2.1.2)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] abstract (v1.0.0, /usr/lib/ruby/gems/1.8/gems/abstract-1.0.0)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] treetop (v1.4.10, /usr/lib/ruby/gems/1.8/gems/treetop-1.4.10)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] gravatar_image_tag (v1.0.0.pre2, /usr/lib/ruby/gems/1.8/gems/gravatar_image_tag-1.0.0.pre2)" level="application" />
   </component>
 </module>
 

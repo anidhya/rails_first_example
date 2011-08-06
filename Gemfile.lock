@@ -30,6 +30,7 @@ GEM
     activesupport (3.0.9)
     arel (2.0.10)
     builder (2.1.2)
+    cocaine (0.1.0)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -46,6 +47,11 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     nokogiri (1.5.0)
+    paperclip (2.3.16)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (>= 0.0.2)
+      mime-types
     polyglot (0.3.2)
     rack (1.2.3)
     rack-mount (0.6.14)
@@ -98,6 +104,7 @@ PLATFORMS
 DEPENDENCIES
   factory_girl_rails (= 1.0)
   gravatar_image_tag (= 1.0.0.pre2)
+  paperclip
   rails (= 3.0.9)
   rspec-rails (= 2.6.1)
   sqlite3

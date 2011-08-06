@@ -3,7 +3,7 @@ require 'digest'
 class User < ActiveRecord::Base
 
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation, :photo
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -11,13 +11,27 @@ class User < ActiveRecord::Base
   validates :name, :presence => true, :length   => { :maximum => 24 }
   validates :email, :presence => true, :format   => { :with => email_regex }, :uniqueness => { :case_sensitive => false }
   validates :password, :presence     => true,
-                       :confirmation => true,
-                       :length       => { :within => 6..40 }
+            :confirmation => true,
+            :length       => { :within => 6..40 }
 
   before_save :encrypt_password
   # Return true if the user's password matches the submitted password.
+
+
+  has_attached_file :photo,
+                    :styles => {
+                        :thumb=> "100x100#",
+                        :small  => "150x150>",
+                        :medium => "300x300>",
+                        :large =>   "400x400>" },
+                    :url  => "/assets/products/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/assets/products/:id/:style/:basename.:extension"
+
+
+  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
+
   def has_password?(submitted_password)
-     encrypted_password == encrypt(submitted_password)
+    encrypted_password == encrypt(submitted_password)
     # Compare encrypted_password with the encrypted version of
     # submitted_password.
   end
@@ -33,23 +47,23 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
 
-   private
+  private
 
-    def encrypt_password
-      self.salt = make_salt if new_record?
-      self.encrypted_password = encrypt(password)
-    end
+  def encrypt_password
+    self.salt = make_salt if new_record?
+    self.encrypted_password = encrypt(password)
+  end
 
-    def encrypt(string)
-      secure_hash("#{salt}--#{string}")
-    end
+  def encrypt(string)
+    secure_hash("#{salt}--#{string}")
+  end
 
-    def make_salt
-      secure_hash("#{Time.now.utc}--#{password}")
-    end
+  def make_salt
+    secure_hash("#{Time.now.utc}--#{password}")
+  end
 
-    def secure_hash(string)
-      Digest::SHA2.hexdigest(string)
-    end
+  def secure_hash(string)
+    Digest::SHA2.hexdigest(string)
+  end
 
 end
